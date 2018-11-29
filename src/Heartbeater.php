@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Shippinno\Heartbeat;
 
+use Exception;
+
 class Heartbeater
 {
     /**
@@ -59,6 +61,10 @@ class Heartbeater
         if (!isset($this->channels[$channelName])) {
             return;
         }
-        $this->heart->beat($this->channels[$channelName]);
+        try {
+            $this->heart->beat($this->channels[$channelName]);
+        } catch (Exception $e) {
+            // Ignore exceptions.
+        }
     }
 }
