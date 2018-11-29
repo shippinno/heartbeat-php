@@ -9,7 +9,7 @@ use GuzzleHttp\ClientInterface;
 class DeadMansSnitchHeart implements Heart
 {
     /**
-     * @var Client
+     * @var ClientInterface
      */
     private $client;
 
