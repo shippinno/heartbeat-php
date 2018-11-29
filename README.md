@@ -16,22 +16,14 @@ $ composer require shippinno/heartbeat
 
 ## Usage
 
-Make it heartbeatable.
+Set up a Heartbeater singleton, with a heart and channels.
 
 ```php
-class Dude
-{
-    use Heartbeatable;
-   
-    // ...
-}
-```
-
-Set a heart.
-
-```php
-$dude = new Dude;
-$dude->setHeart(new DeadMansSnitchHeart('SNITCH_TOKEN'));
+$heartbeater = Heartbeater::instance();
+$heartbeater->setHeart(new DeadMansSnitchHeart(new Client);
+$heartbeater->setChannels([
+    'vital' => 'SNITCH_TOKEN',
+]);
 ```
 
 Let it heartbeat forever.
@@ -39,13 +31,11 @@ Let it heartbeat forever.
 ```php
 class Dude
 {
-    use Heartbeatable;
-   
     public function live()
     {
         $alive = true;
         while ($alive) {
-            $this->heartbeat();
+            Heartbeat::instance()->heartbeat('vital');
             sleep(1);
         }
     }

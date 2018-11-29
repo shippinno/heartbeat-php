@@ -17,8 +17,8 @@ class DeadMansSnitchHeartTest extends TestCase
         $stack = HandlerStack::create(new MockHandler([new Response(202)]));
         $stack->push(Middleware::history($historyContainer));
         $client = new Client(['handler' => $stack]);
-        $heart = new DeadMansSnitchHeart('TOKEN', $client);
-        $heart->beat();
+        $heart = new DeadMansSnitchHeart($client);
+        $heart->beat('TOKEN');
         $this->assertCount(1, $historyContainer);
         $request = $historyContainer[0]['request'];
         $this->assertSame('GET', $request->getMethod());

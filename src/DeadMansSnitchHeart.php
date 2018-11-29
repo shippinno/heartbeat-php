@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Shippinno\Heartbeat;
 
@@ -8,30 +9,23 @@ use GuzzleHttp\ClientInterface;
 class DeadMansSnitchHeart implements Heart
 {
     /**
-     * @var string
-     */
-    private $token;
-
-    /**
      * @var Client
      */
     private $client;
 
     /**
-     * @param string $token
      * @param ClientInterface|null $client
      */
-    public function __construct(string $token, ClientInterface $client = null)
+    public function __construct(ClientInterface $client = null)
     {
-        $this->token = $token;
         $this->client = $client ?: new Client;
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $token
      */
-    public function beat(): void
+    public function beat($token): void
     {
-        $this->client->get(sprintf('https://nosnch.in/%s', $this->token));
+        $this->client->get(sprintf('https://nosnch.in/%s', $token));
     }
 }
